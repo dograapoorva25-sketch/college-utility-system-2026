@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - College Utility System</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-graduation-cap"></i>
+                    <span>CUS</span>
+                </div>
+                <button class="toggle-sidebar" onclick="toggleSidebar()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="nav-item active">
+                        <a href="#dashboard" class="nav-link" onclick="loadDashboard()">
+                            <i class="fas fa-home"></i>
+                            <span>Dashboard</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#profile" class="nav-link" onclick="loadProfile()">
+                            <i class="fas fa-user"></i>
+                            <span>Profile</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#attendance" class="nav-link" onclick="loadAttendance()">
+                            <i class="fas fa-clipboard-list"></i>
+                            <span>Attendance</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#grades" class="nav-link" onclick="loadGrades()">
+                            <i class="fas fa-star"></i>
+                            <span>Grades</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#notices" class="nav-link" onclick="loadNotices()">
+                            <i class="fas fa-bell"></i>
+                            <span>Notices</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#timetable" class="nav-link" onclick="loadTimetable()">
+                            <i class="fas fa-calendar"></i>
+                            <span>Timetable</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <button class="logout-btn" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i>
+                    <span>Logout</span>
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Top Navigation Bar -->
+            <header class="top-navbar">
+                <button class="menu-toggle" onclick="toggleSidebar()">
+                    <i class="fas fa-bars"></i>
+                </button>
+
+                <div class="navbar-content">
+                    <h2 id="pageTitle">Dashboard</h2>
+                    
+                    <div class="navbar-right">
+                        <div class="search-bar">
+                            <input type="text" placeholder="Search...">
+                            <i class="fas fa-search"></i>
+                        </div>
+
+                        <div class="user-profile">
+                            <img id="profileImage" src="https://via.placeholder.com/40" alt="Profile" class="profile-image">
+                            <div class="user-info">
+                                <p id="userName" class="user-name">Student Name</p>
+                                <p class="user-role">Student</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Content Area -->
+            <div class="content">
+                <!-- Dashboard View -->
+                <section id="dashboardView" class="view active">
+                    <!-- Quick Stats -->
+                    <div class="quick-stats">
+                        <div class="stat-card">
+                            <div class="stat-icon attendance-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Attendance</h3>
+                                <p id="attendancePercent" class="stat-value">85%</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon cgpa-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>CGPA</h3>
+                                <p id="cgpaValue" class="stat-value">8.5</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon sgpa-icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>SGPA</h3>
+                                <p id="sgpaValue" class="stat-value">8.7</p>
+                            </div>
+                        </div>
+
+                        <div class="stat-card">
+                            <div class="stat-icon subjects-icon">
+                                <i class="fas fa-book"></i>
+                            </div>
+                            <div class="stat-content">
+                                <h3>Subjects</h3>
+                                <p id="subjectsCount" class="stat-value">5</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Notices -->
+                    <div class="dashboard-section">
+                        <h3>Recent Notices</h3>
+                        <div id="recentNotices" class="notices-grid">
+                            <!-- Notice cards will be populated here -->
+                        </div>
+                    </div>
+
+                    <!-- Attendance Overview -->
+                    <div class="dashboard-section">
+                        <h3>Attendance Overview</h3>
+                        <div id="attendanceOverview" class="attendance-overview">
+                            <!-- Attendance chart will be populated here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Profile View -->
+                <section id="profileView" class="view">
+                    <div class="profile-container">
+                        <div class="profile-header">
+                            <img id="studentPhoto" src="https://via.placeholder.com/150" alt="Profile Photo" class="profile-photo">
+                            <div class="profile-info">
+                                <h2 id="studentName">Student Name</h2>
+                                <p id="studentRoll" class="roll-number">Roll Number: XXXX</p>
+                            </div>
+                        </div>
+
+                        <div class="profile-details">
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <label>Full Name</label>
+                                    <p id="fullName">N/A</p>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Email</label>
+                                    <p id="email">N/A</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <label>Roll Number</label>
+                                    <p id="rollNum">N/A</p>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Registration Number</label>
+                                    <p id="regNum">N/A</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <label>Course</label>
+                                    <p id="course">N/A</p>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Branch</label>
+                                    <p id="branch">N/A</p>
+                                </div>
+                            </div>
+
+                            <div class="detail-row">
+                                <div class="detail-item">
+                                    <label>Semester</label>
+                                    <p id="semester">N/A</p>
+                                </div>
+                                <div class="detail-item">
+                                    <label>Phone Number</label>
+                                    <p id="phone">N/A</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Attendance View -->
+                <section id="attendanceView" class="view">
+                    <div class="attendance-container">
+                        <h3>Current Semester Attendance</h3>
+                        <div id="attendanceTable" class="table-responsive">
+                            <!-- Attendance table will be populated here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Grades View -->
+                <section id="gradesView" class="view">
+                    <div class="grades-container">
+                        <h3>Current Semester Grades</h3>
+                        <div id="gradesTable" class="table-responsive">
+                            <!-- Grades table will be populated here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Notices View -->
+                <section id="noticesView" class="view">
+                    <div class="notices-container">
+                        <h3>College Notices</h3>
+                        <div id="noticesList" class="notices-list">
+                            <!-- Notices will be populated here -->
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Timetable View -->
+                <section id="timetableView" class="view">
+                    <div class="timetable-container">
+                        <h3>Weekly Timetable</h3>
+                        <div id="timetableContent" class="timetable-content">
+                            <!-- Timetable will be populated here -->
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/dashboard.js"></script>
+</body>
+</html>
